@@ -1,2 +1,2 @@
-![Banner](https://github.com/user-attachments/assets/62cede2e-4d1c-4ac9-827d-dd5acbd28379)
+![Banner](https://github.com/user-attachments/assets/949eb1dd-0210-4f66-bc58-960a0a8aacf2)
 # browser-image-scout
