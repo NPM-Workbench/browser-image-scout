@@ -1,0 +1,34 @@
+{
+  "name": "browser-image-scout",
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
+    "test:watch": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
+    "test:coverage": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --coverage --verbose"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NPM-Workbench/browser-image-scout"
+  },
+  "bugs": {
+    "url": "https://github.com/NPM-Workbench/browser-image-scout/issues"
+  },
+  "homepage": "https://github.com/NPM-Workbench/browser-image-scout"
+}
