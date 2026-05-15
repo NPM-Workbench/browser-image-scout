@@ -7,3 +7,4 @@ export * from "./supports-svg/index.js";
 export * from "./supports-webp/index.js";
 export * from "./supports-avif/index.js";
 export * from "./get-all-image-format-support/index.js";
+export * from "./is-image-format-supported/index.js";
