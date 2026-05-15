@@ -30,6 +30,7 @@ async function supportsSVG(): Promise<TSupportsSVGReturn> {
       image.addEventListener('error', () => {
         resolve({ mimeType, imgType, supported: false });
       }, { once: true });
+
       image.src = B64_URL;
     });
   }

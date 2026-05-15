@@ -30,6 +30,7 @@ async function supportsPNG(): Promise<TSupportsPNGReturn> {
       image.addEventListener('error', () => {
         resolve({ mimeType, imgType, supported: false });
       }, { once: true });
+
       image.src = B64_URL;
     });
   }
