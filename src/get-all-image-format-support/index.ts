@@ -1,17 +1,17 @@
 /* imports */
-import { supportsAVIF } from "../supports-avif/index.js";
-import { supportsGIF } from "../supports-gif/index.js";
-import { supportsJPEG } from "../supports-jpeg/index.js";
-import { supportsPNG } from "../supports-png/index.js";
-import { supportsSVG } from "../supports-svg/index.js";
-import { supportsWEBP } from "../supports-webp/index.js";
-import { TMimeType, TImageType } from "../types/index.js";
+import { supportsAVIF } from '../supports-avif/index.js';
+import { supportsGIF } from '../supports-gif/index.js';
+import { supportsJPEG } from '../supports-jpeg/index.js';
+import { supportsPNG } from '../supports-png/index.js';
+import { supportsSVG } from '../supports-svg/index.js';
+import { supportsWEBP } from '../supports-webp/index.js';
+import type { TMimeType, TImageType } from '../types/index.js';
 
 /* types */
 type TGetAllImageFormatSupportReturn = {
-  mimeType: TMimeType,
-  imgType: TImageType,
-  supported: boolean
+  mimeType: TMimeType;
+  imgType: TImageType;
+  supported: boolean;
 }[];
 type TOutput = TGetAllImageFormatSupportReturn;
 
@@ -28,7 +28,7 @@ async function getAllImageFormatSupport(): Promise<TOutput> {
       supportsJPEG(),
       supportsPNG(),
       supportsSVG(),
-      supportsWEBP()
+      supportsWEBP(),
     ]);
   }
 }
