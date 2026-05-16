@@ -5,6 +5,7 @@ import { supportsJPEG } from '../supports-jpeg/index.js';
 import { supportsPNG } from '../supports-png/index.js';
 import { supportsSVG } from '../supports-svg/index.js';
 import { supportsWEBP } from '../supports-webp/index.js';
+import { supportsJPEGXL } from '../supports-jpegxl/index.js';
 import type { TMimeType, TImageType } from '../types/index.js';
 
 /* types */
@@ -26,6 +27,7 @@ async function getAllImageFormatSupport(): Promise<TOutput> {
       supportsAVIF(),
       supportsGIF(),
       supportsJPEG(),
+      supportsJPEGXL(),
       supportsPNG(),
       supportsSVG(),
       supportsWEBP(),

@@ -1,8 +1,9 @@
-export type TImageType = 'jpeg' | 'png' | 'gif' | 'svg' | 'webp' | 'avif';
+export type TImageType = 'jpeg' | 'png' | 'gif' | 'svg' | 'webp' | 'avif' | 'jxl';
 export type TMimeType =
   | 'image/jpeg'
   | 'image/png'
   | 'image/gif'
   | 'image/svg+xml'
   | 'image/webp'
-  | 'image/avif';
+  | 'image/avif'
+  | 'image/jxl';
