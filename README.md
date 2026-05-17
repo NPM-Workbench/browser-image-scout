@@ -153,6 +153,49 @@ await exampleWEBP();
 // fail response
 // { mimeType: 'image/webp', imgType: 'webp', supported: false }
 ```
+8. 📁 Get All Image Format Support
+```javascript
+import { getAllImageFormatSupport } from 'browser-image-scout';
+import type { TGetAllImageFormatSupportReturn } from 'browser-image-scout';
+
+async function exampleAll() {
+  const res: TGetAllImageFormatSupportReturn = await getAllImageFormatSupport();
+  console.log(res);
+}
+await exampleAll();
+
+// response schema/shape
+// [
+//   { mimeType: 'image/avif', imgType: 'avif', supported: true },
+//   { mimeType: 'image/gif', imgType: 'gif', supported: true },
+//   { mimeType: 'image/jxl', imgType: 'jxl', supported: false },
+//   ...
+//   ...
+//   ...
+// ]
+```
+9. 📁 Is Image Format Supported
+```javascript
+import { isImageFormatSupported } from 'browser-image-scout';
+import type { TIsImageFormatSupportedReturn } from 'browser-image-scout';
+
+async function exampleSome() {
+  const res: TIsImageFormatSupportedReturn = await isImageFormatSupported([
+    'avif',
+    'webp',
+    'png',
+  ]);
+  console.log(res);
+}
+await exampleSome();
+
+// response schema/shape
+// [
+//   { mimeType: 'image/avif', imgType: 'avif', supported: true },
+//   { mimeType: 'image/webp', imgType: 'webp', supported: false },
+//   { mimeType: 'image/png', imgType: 'png', supported: true },
+// ]
+```
 
 ### 📚 Contributions
 1. New Ideas/Contributions: Open Discussion(s) - https://github.com/NPM-Workbench/browser-image-scout/discussions
