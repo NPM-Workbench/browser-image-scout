@@ -1,8 +1,6 @@
 ![Banner](https://github.com/user-attachments/assets/80f2fbf0-2604-4e10-a455-af87bad7c419)
 # browser-image-scout
-A typescript-first package that helps detect whether a browser or (any suitable runtime environment) can support image formats. It works by creating a tiny image from `base64` data URLs, observe the `Image` contructor's `load`/`error` and `naturalWidh` to determine the support. Each format helper function is expected to return a promise that resolves to an object containing the support information.
-
-🎓 **In simple words:** this package asks the browser (or a mocked test environment) to try loading tiny example images for each format and reports back whether those images actually decoded — giving you a reliable yes/no for whether that image format is supported.
+🛰 A TypeScript-first package that checks image format support by loading tiny base64 data-URL images with the browser Image constructor, watching `load/error` events and `naturalWidth`, and returning a promise for each format with `{ mimeType, imgType, supported }` so you get a simple yes/no answer for whether the format is supported.
 
 ### 📦 Installation
 ```console
