@@ -19,6 +19,141 @@ npm install --save browser-image-scout
 6. No network required: Detection runs entirely in-memory (no external requests)
 7. Easy to Understand: API features are easy to understand, which can be integrated into your client side application code
 
+### 🔤 Fuctions Example Usage
+1. 📁 Supports AVIF
+```javascript
+/* node modules */
+import { supportsAVIF } from 'browser-image-scout';
+import type { TSupportsAVIFReturn } from 'browser-image-scout';
+
+/* example */
+async function exampleAVIF() {
+  const res: TSupportsAVIFReturn = await supportsAVIF();
+  console.log(res);
+}
+await exampleAVIF();
+
+// ok response
+// { mimeType: 'image/avif', imgType: 'avif', supported: true }
+
+// fail response
+// { mimeType: 'image/avif', imgType: 'avif', supported: false }
+```
+2. 📁 Supports GIF
+```javascript
+/* node modules */
+import { supportsGIF } from 'browser-image-scout';
+import type { TSupportsGIFReturn } from 'browser-image-scout';
+
+/* example */
+async function exampleGIF() {
+  const res: TSupportsGIFReturn = await supportsGIF();
+  console.log(res);
+}
+await exampleGIF();
+
+// ok response
+// { mimeType: 'image/gif', imgType: 'gif', supported: true }
+
+// fail response
+// { mimeType: 'image/gif', imgType: 'gif', supported: false }
+```
+3. 📁 Supports JPEG
+```javascript
+/* node modules */
+import { supportsJPEG } from 'browser-image-scout';
+import type { TSupportsJPEGReturn } from 'browser-image-scout';
+
+/* example */
+async function exampleJPEG() {
+  const res: TSupportsJPEGReturn = await supportsJPEG();
+  console.log(res);
+}
+await exampleJPEG();
+
+// ok response
+// { mimeType: 'image/jpeg', imgType: 'jpeg', supported: true }
+
+// fail response
+// { mimeType: 'image/jpeg', imgType: 'jpeg', supported: false }
+```
+4. 📁 Supports JPEGXL
+```javascript
+/* node modules */
+import { supportsJPEGXL } from 'browser-image-scout';
+import type { TSupportsJPEGXLReturn } from 'browser-image-scout';
+
+/* example */
+async function exampleJPEGXL() {
+  const res: TSupportsJPEGXLReturn = await supportsJPEGXL();
+  console.log(res);
+}
+await exampleJPEGXL();
+
+// ok response
+// { mimeType: 'image/jxl', imgType: 'jxl', supported: true }
+
+// fail response
+// { mimeType: 'image/jxl', imgType: 'jxl', supported: false }
+```
+5. 📁 Supports PNG
+```javascript
+/* node modules */
+import { supportsPNG } from 'browser-image-scout';
+import type { TSupportsPNGReturn } from 'browser-image-scout';
+
+/* example */
+async function examplePNG() {
+  const res: TSupportsPNGReturn = await supportsPNG();
+  console.log(res);
+}
+await examplePNG();
+
+// ok response
+// { mimeType: 'image/png', imgType: 'png', supported: true }
+
+// fail response
+// { mimeType: 'image/png', imgType: 'png', supported: false }
+```
+6. 📁 Supports SVG
+```javascript
+/* node modules */
+import { supportsSVG } from 'browser-image-scout';
+import type { TSupportsSVGReturn } from 'browser-image-scout';
+
+/* example */
+async function exampleSVG() {
+  const res: TSupportsSVGReturn = await supportsSVG();
+  console.log(res);
+}
+await exampleSVG();
+
+// ok response
+// { mimeType: 'image/svg+xml', imgType: 'svg', supported: true }
+
+// fail response
+// { mimeType: 'image/svg+xml', imgType: 'svg', supported: false }
+```
+7. 📁 Supports WEBP
+```javascript
+/* node modules */
+import { supportsWEBP } from 'browser-image-scout';
+import type { TSupportsWEBPReturn } from 'browser-image-scout';
+
+/* example */
+async function exampleWEBP() {
+  const res: TSupportsWEBPReturn = await supportsWEBP();
+  console.log(res);
+}
+await exampleWEBP();
+
+// ok response
+// { mimeType: 'image/webp', imgType: 'webp', supported: true }
+
+// fail response
+// { mimeType: 'image/webp', imgType: 'webp', supported: false }
+```
+
 ### 📚 Contributions
 1. New Ideas/Contributions: Open Discussion(s) - https://github.com/NPM-Workbench/browser-image-scout/discussions
 2. Issues and Debugging: Open Issue(s) - https://github.com/NPM-Workbench/browser-image-scout/issues
