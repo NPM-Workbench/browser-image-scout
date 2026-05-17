@@ -195,6 +195,47 @@ await exampleSome();
 // ]
 ```
 
+### 📗 Test Coverage
+```PASS  src/supports-jpegxl/tests/supports-jpegxl.test.ts
+PASS  src/supports-png/tests/supports-png.test.ts
+PASS  src/supports-webp/tests/supports-webp.test.ts
+PASS  src/supports-jpeg/tests/supports-jpeg.test.ts
+PASS  src/shared/tests/shared.test.ts
+PASS  src/supports-gif/tests/supports-gif.test.ts
+PASS  src/supports-svg/tests/supports-svg.test.ts
+PASS  src/is-image-format-supported/tests/is-image-format-supported.test.ts
+PASS  src/supports-avif/tests/supports-avif.test.ts
+PASS  src/get-all-image-format-support/tests/get-all-image-format-support.test.ts
+-------------------------------|---------|----------|---------|---------|-------------------
+File                           | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-------------------------------|---------|----------|---------|---------|-------------------
+All files                      |     100 |      100 |     100 |     100 |
+get-all-image-format-support   |     100 |      100 |     100 |     100 |
+  index.ts                     |     100 |      100 |     100 |     100 |
+is-image-format-supported      |     100 |      100 |     100 |     100 |
+  index.ts                     |     100 |      100 |     100 |     100 |
+shared                         |     100 |      100 |     100 |     100 |
+  index.ts                     |     100 |      100 |     100 |     100 |
+shared/mocks                   |     100 |      100 |     100 |     100 |
+  mock-broken-image.ts         |     100 |      100 |     100 |     100 |
+  mock-image.ts                |     100 |      100 |     100 |     100 |
+supports-avif                  |     100 |      100 |     100 |     100 |
+  index.ts                     |     100 |      100 |     100 |     100 |
+supports-gif                   |     100 |      100 |     100 |     100 |
+  index.ts                     |     100 |      100 |     100 |     100 |
+supports-jpeg                  |     100 |      100 |     100 |     100 |
+  index.ts                     |     100 |      100 |     100 |     100 |
+supports-jpegxl                |     100 |      100 |     100 |     100 |
+  index.ts                     |     100 |      100 |     100 |     100 |
+supports-png                   |     100 |      100 |     100 |     100 |
+  index.ts                     |     100 |      100 |     100 |     100 |
+supports-svg                   |     100 |      100 |     100 |     100 |
+  index.ts                     |     100 |      100 |     100 |     100 |
+supports-webp                  |     100 |      100 |     100 |     100 |
+  index.ts                     |     100 |      100 |     100 |     100 |
+-------------------------------|---------|----------|---------|---------|-------------------
+```
+
 ### 📚 Contributions
 1. New Ideas/Contributions: Open Discussion(s) - https://github.com/NPM-Workbench/browser-image-scout/discussions
 2. Issues and Debugging: Open Issue(s) - https://github.com/NPM-Workbench/browser-image-scout/issues
