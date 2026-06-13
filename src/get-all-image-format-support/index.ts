@@ -6,14 +6,10 @@ import { supportsPNG } from '../supports-png/index.js';
 import { supportsSVG } from '../supports-svg/index.js';
 import { supportsWEBP } from '../supports-webp/index.js';
 import { supportsJPEGXL } from '../supports-jpegxl/index.js';
-import type { TMimeType, TImageType } from '../types/index.js';
+import type { TSupportState } from '../types/index.js';
 
 /* types */
-type TGetAllImageFormatSupportReturn = {
-  mimeType: TMimeType;
-  imgType: TImageType;
-  supported: boolean;
-}[];
+type TGetAllImageFormatSupportReturn = TSupportState[];
 type TOutput = TGetAllImageFormatSupportReturn;
 
 /* module */

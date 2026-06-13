@@ -6,15 +6,11 @@ import { supportsPNG } from '../supports-png/index.js';
 import { supportsSVG } from '../supports-svg/index.js';
 import { supportsWEBP } from '../supports-webp/index.js';
 import { supportsJPEGXL } from '../supports-jpegxl/index.js';
-import type { TMimeType, TImageType } from '../types/index.js';
+import type { TImageType, TSupportState } from '../types/index.js';
 
 /* types */
 type TInput = TImageType | TImageType[];
-type TIsImageFormatSupportedReturn = {
-  mimeType: TMimeType;
-  imgType: TImageType;
-  supported: boolean;
-};
+type TIsImageFormatSupportedReturn = TSupportState;
 type TSupportRef = () => Promise<TIsImageFormatSupportedReturn>;
 
 /* module */
