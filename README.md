@@ -1,4 +1,10 @@
 ![Banner](https://github.com/user-attachments/assets/80f2fbf0-2604-4e10-a455-af87bad7c419)
+![npm](https://img.shields.io/npm/v/browser-image-scout)
+![downloads](https://img.shields.io/npm/dw/browser-image-scout)
+![license](https://img.shields.io/npm/l/browser-image-scout)
+![Security Policy](https://img.shields.io/badge/security-policy-brightgreen)
+![npm_provenance](https://img.shields.io/badge/npm-provenance-brightgreen?logo=npm)
+![NPM Unpacked Size](https://img.shields.io/npm/unpacked-size/frankfurter-api-client-v2)
 
 # browser-image-scout
 
@@ -397,6 +403,11 @@ Snapshots:   0 total
 
 1. New Ideas/Contributions: Open Discussion(s) - https://github.com/NPM-Workbench/browser-image-scout/discussions
 2. Issues and Debugging: Open Issue(s) - https://github.com/NPM-Workbench/browser-image-scout/issues
+
+### 🔒 Security & Privacy
+
+1. This package is open source and intended to provide reusable utilities for application development. It does not collect, store, transmit, sell, or share user data, and it does not include analytics, tracking, telemetry, cookies, local storage usage, backend services, or project-owned data collection mechanisms.
+2. For more details, including vulnerability reporting guidance and consumer security recommendations, please see the [Security Policy](https://github.com/NPM-Workbench/browser-image-scout/security/policy).
 
 ### ❤️ Support
 
