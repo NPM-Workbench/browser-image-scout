@@ -1,7 +1,7 @@
 /* imports */
+import { jest } from '@jest/globals';
 import { MockImage } from '../../shared/mocks/mock-image.js';
 import { MockBrokenImage } from '../../shared/mocks/mock-broken-image.js';
-import { isImageFormatSupported } from '../index.js';
 
 /* suite */
 describe('Is Image Format Supported', () => {
@@ -11,6 +11,7 @@ describe('Is Image Format Supported', () => {
 
   /* before-each: life cycle */
   beforeEach(() => {
+    jest.resetModules();
     globalThis.window = {} as any;
     globalThis.Image = MockImage as any;
   });
@@ -23,6 +24,8 @@ describe('Is Image Format Supported', () => {
 
   /* 1 */
   test('throws when the window global is not available', async () => {
+    const { isImageFormatSupported } = await import('../index.js');
+
     globalThis.window = undefined as any;
     await expect(isImageFormatSupported('avif')).rejects.toThrow(
       '[Global Not Found]: Window Object',
@@ -31,6 +34,8 @@ describe('Is Image Format Supported', () => {
 
   /* 2 */
   test('throws when the Image constructor is not available', async () => {
+    const { isImageFormatSupported } = await import('../index.js');
+
     globalThis.Image = undefined as any;
     await expect(isImageFormatSupported('avif')).rejects.toThrow(
       '[Global Not Found]: Image Constructor',
@@ -40,6 +45,7 @@ describe('Is Image Format Supported', () => {
   /* 3 */
   test('returns "support = true": single format argument', async () => {
     /* setup */
+    const { isImageFormatSupported } = await import('../index.js');
     const response = await isImageFormatSupported('avif');
 
     /* assert */
@@ -47,11 +53,17 @@ describe('Is Image Format Supported', () => {
     expect(response[0].supported).toBe(true);
     expect(response[0].mimeType).toBe('image/avif');
     expect(response[0].imgType).toBe('avif');
+    expect(response[0].timestamp).toEqual({
+      ms: expect.any(Number),
+      str: expect.any(String),
+    });
   });
 
   /* 4 */
   test('returns "support = false": single format argument', async () => {
     /* setup */
+    const { isImageFormatSupported } = await import('../index.js');
+
     globalThis.Image = MockBrokenImage as any;
     const response = await isImageFormatSupported('gif');
 
@@ -60,28 +72,71 @@ describe('Is Image Format Supported', () => {
     expect(response[0].supported).toBe(false);
     expect(response[0].mimeType).toBe('image/gif');
     expect(response[0].imgType).toBe('gif');
+    expect(response[0].timestamp).toEqual({
+      ms: expect.any(Number),
+      str: expect.any(String),
+    });
   });
 
   /* 5 */
   test('returns "support = true": multiple format arguments', async () => {
     /* setup */
+    const { isImageFormatSupported } = await import('../index.js');
     const response = await isImageFormatSupported(['avif', 'gif']);
 
     /* assert */
     expect(response.length).toBe(2);
-    expect(response[0].supported).toBe(true);
-    expect(response[1].supported).toBe(true);
+    expect(response).toEqual([
+      expect.objectContaining({
+        supported: true,
+        mimeType: 'image/avif',
+        imgType: 'avif',
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+      expect.objectContaining({
+        supported: true,
+        mimeType: 'image/gif',
+        imgType: 'gif',
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+    ]);
   });
 
   /* 6 */
   test('returns "support = false": multiple format arguments', async () => {
     /* setup */
+    const { isImageFormatSupported } = await import('../index.js');
+
     globalThis.Image = MockBrokenImage as any;
     const response = await isImageFormatSupported(['avif', 'gif']);
 
     /* assert */
     expect(response.length).toBe(2);
-    expect(response[0].supported).toBe(false);
-    expect(response[1].supported).toBe(false);
+    expect(response).toEqual([
+      expect.objectContaining({
+        supported: false,
+        mimeType: 'image/avif',
+        imgType: 'avif',
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+      expect.objectContaining({
+        supported: false,
+        mimeType: 'image/gif',
+        imgType: 'gif',
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+    ]);
   });
 });

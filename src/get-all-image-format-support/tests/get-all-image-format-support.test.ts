@@ -1,5 +1,5 @@
 /* imports */
-import { getAllImageFormatSupport } from '../index.js';
+import { jest } from '@jest/globals';
 import type { TGetAllImageFormatSupportReturn } from '../index.js';
 import { MockImage } from '../../shared/mocks/mock-image.js';
 import { MockBrokenImage } from '../../shared/mocks/mock-broken-image.js';
@@ -12,6 +12,7 @@ describe('Get All Image Format Support', () => {
 
   /* before-each: life cycle */
   beforeEach(() => {
+    jest.resetModules();
     globalThis.window = {} as any;
     globalThis.Image = MockImage as any;
   });
@@ -24,6 +25,8 @@ describe('Get All Image Format Support', () => {
 
   /* 1 */
   test('throws when the window global is not available', async () => {
+    const { getAllImageFormatSupport } = await import('../index.js');
+
     globalThis.window = undefined as any;
     await expect(getAllImageFormatSupport()).rejects.toThrow(
       '[Global Not Found]: Window Object',
@@ -32,6 +35,8 @@ describe('Get All Image Format Support', () => {
 
   /* 2 */
   test('throws when the Image constructor is not available', async () => {
+    const { getAllImageFormatSupport } = await import('../index.js');
+
     globalThis.Image = undefined as any;
     await expect(getAllImageFormatSupport()).rejects.toThrow(
       '[Global Not Found]: Image Constructor',
@@ -40,38 +45,151 @@ describe('Get All Image Format Support', () => {
 
   /* 3 */
   test('resolves all formats as supported', async () => {
+    const { getAllImageFormatSupport } = await import('../index.js');
     const result: TGetAllImageFormatSupportReturn =
       await getAllImageFormatSupport();
 
     expect(result).toHaveLength(7);
-    expect(result.every((r) => r.supported === true)).toBe(true);
-    expect(result.map((r) => r.imgType)).toEqual([
-      'avif',
-      'gif',
-      'jpeg',
-      'jxl',
-      'png',
-      'svg',
-      'webp',
+    expect(result).toEqual([
+      expect.objectContaining({
+        mimeType: 'image/avif',
+        imgType: 'avif',
+        supported: true,
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+      expect.objectContaining({
+        mimeType: 'image/gif',
+        imgType: 'gif',
+        supported: true,
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+      expect.objectContaining({
+        mimeType: 'image/jpeg',
+        imgType: 'jpeg',
+        supported: true,
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+      expect.objectContaining({
+        mimeType: 'image/jxl',
+        imgType: 'jxl',
+        supported: true,
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+      expect.objectContaining({
+        mimeType: 'image/png',
+        imgType: 'png',
+        supported: true,
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+      expect.objectContaining({
+        mimeType: 'image/svg+xml',
+        imgType: 'svg',
+        supported: true,
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+      expect.objectContaining({
+        mimeType: 'image/webp',
+        imgType: 'webp',
+        supported: true,
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
     ]);
   });
 
   /* 4 */
   test('resolves all formats as unsupported', async () => {
+    const { getAllImageFormatSupport } = await import('../index.js');
+
     globalThis.Image = MockBrokenImage as any;
     const result: TGetAllImageFormatSupportReturn =
       await getAllImageFormatSupport();
 
     expect(result).toHaveLength(7);
-    expect(result.every((r) => r.supported === false)).toBe(true);
-    expect(result.map((r) => r.imgType)).toEqual([
-      'avif',
-      'gif',
-      'jpeg',
-      'jxl',
-      'png',
-      'svg',
-      'webp',
+    expect(result).toEqual([
+      expect.objectContaining({
+        mimeType: 'image/avif',
+        imgType: 'avif',
+        supported: false,
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+      expect.objectContaining({
+        mimeType: 'image/gif',
+        imgType: 'gif',
+        supported: false,
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+      expect.objectContaining({
+        mimeType: 'image/jpeg',
+        imgType: 'jpeg',
+        supported: false,
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+      expect.objectContaining({
+        mimeType: 'image/jxl',
+        imgType: 'jxl',
+        supported: false,
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+      expect.objectContaining({
+        mimeType: 'image/png',
+        imgType: 'png',
+        supported: false,
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+      expect.objectContaining({
+        mimeType: 'image/svg+xml',
+        imgType: 'svg',
+        supported: false,
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
+      expect.objectContaining({
+        mimeType: 'image/webp',
+        imgType: 'webp',
+        supported: false,
+        timestamp: {
+          ms: expect.any(Number),
+          str: expect.any(String),
+        },
+      }),
     ]);
   });
 });
