@@ -7,3 +7,10 @@ export type TMimeType =
   | 'image/webp'
   | 'image/avif'
   | 'image/jxl';
+export type TTimestamp = {ms: number, str: string};
+export type TSupportState = {
+  mimeType: TMimeType,
+  imgType: TImageType,
+  supported: boolean,
+  timestamp: TTimestamp,
+};

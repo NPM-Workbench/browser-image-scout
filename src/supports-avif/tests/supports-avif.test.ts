@@ -1,5 +1,5 @@
 /* imports */
-import { supportsAVIF } from '../index.js';
+import { jest } from '@jest/globals';
 import type { TSupportsAVIFReturn } from '../index.js';
 import { MockImage } from '../../shared/mocks/mock-image.js';
 import { MockBrokenImage } from '../../shared/mocks/mock-broken-image.js';
@@ -12,6 +12,7 @@ describe('Supports AVIF', () => {
 
   /* before-each: life cycle */
   beforeEach(() => {
+    jest.resetModules();
     globalThis.window = {} as any;
     globalThis.Image = MockImage as any;
   });
@@ -24,6 +25,8 @@ describe('Supports AVIF', () => {
 
   /* 1 */
   test('throws when the window global is not available', async () => {
+    const { supportsAVIF } = await import('../index.js');
+
     globalThis.window = undefined as any;
     await expect(supportsAVIF()).rejects.toThrow(
       '[Global Not Found]: Window Object',
@@ -32,6 +35,8 @@ describe('Supports AVIF', () => {
 
   /* 2 */
   test('throws when the Image constructor is not available', async () => {
+    const { supportsAVIF } = await import('../index.js');
+
     globalThis.Image = undefined as any;
     await expect(supportsAVIF()).rejects.toThrow(
       '[Global Not Found]: Image Constructor',
@@ -41,17 +46,24 @@ describe('Supports AVIF', () => {
   /* 3 */
   test('resolves "support = true" when AVIF is supported', async () => {
     /* setup */
+    const { supportsAVIF } = await import('../index.js');
     const response: TSupportsAVIFReturn = await supportsAVIF();
 
     /* assert */
     expect(response.supported).toBe(true);
     expect(response.mimeType).toBe('image/avif');
     expect(response.imgType).toBe('avif');
+    expect(response.timestamp).toEqual({
+      ms: expect.any(Number),
+      str: expect.any(String),
+    });
   });
 
   /* 4 */
   test('resolves "support = false" when AVIF is not supported', async () => {
     /* setup */
+    const { supportsAVIF } = await import('../index.js');
+
     globalThis.Image = MockBrokenImage as any;
     const response: TSupportsAVIFReturn = await supportsAVIF();
 
@@ -59,5 +71,9 @@ describe('Supports AVIF', () => {
     expect(response.supported).toBe(false);
     expect(response.mimeType).toBe('image/avif');
     expect(response.imgType).toBe('avif');
+    expect(response.timestamp).toEqual({
+      ms: expect.any(Number),
+      str: expect.any(String),
+    });
   });
 });
