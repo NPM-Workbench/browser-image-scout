@@ -2,7 +2,9 @@
 
 # browser-image-scout
 
-🛰 A TypeScript-first package that checks image format support by loading tiny base64 data-URL images with the browser Image constructor, watching `load/error` events and `naturalWidth`, and returning a promise for each format with `{ mimeType, imgType, supported }` so you get a simple yes/no answer for whether the format is supported.
+🛰 A TypeScript-first package that checks image format support by loading tiny base64 data-URL images with the browser Image constructor, watching `load/error` events and `naturalWidth`, and returning a promise for each format with `{ mimeType, imgType, supported, timestamp }` so you get a simple yes/no answer for whether the format is supported.
+
+Each direct helper caches its first detection result, so repeated calls for the same format reuse the same promise/result instead of creating a new `Image` check.
 
 ### 📦 Installation
 
@@ -22,7 +24,31 @@ npm install --save browser-image-scout
 6. No network required: Detection runs entirely in-memory (no external requests)
 7. Easy to Understand: API features are easy to understand, which can be integrated into your client side application code
 
-### 🔤 Fuctions Example Usage
+### 🧿 Response Shape
+
+```typescript
+type TSupportState = {
+  mimeType:
+    | 'image/avif'
+    | 'image/gif'
+    | 'image/jpeg'
+    | 'image/jxl'
+    | 'image/png'
+    | 'image/svg+xml'
+    | 'image/webp';
+  imgType: 'avif' | 'gif' | 'jpeg' | 'jxl' | 'png' | 'svg' | 'webp';
+  supported: boolean;
+  timestamp: {
+    ms: number;
+    str: string;
+  };
+};
+```
+
+`timestamp.ms` is the Unix timestamp in milliseconds when the detection result was created.
+`timestamp.str` is a formatted local date/time string.
+
+### 🔤 Available Functions/Example API Usage
 
 1. 📁 Supports AVIF
 
@@ -39,10 +65,20 @@ async function exampleAVIF() {
 await exampleAVIF();
 
 // ok response
-// { mimeType: 'image/avif', imgType: 'avif', supported: true }
+// {
+//   mimeType: 'image/avif',
+//   imgType: 'avif',
+//   supported: true,
+//   timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+// }
 
 // fail response
-// { mimeType: 'image/avif', imgType: 'avif', supported: false }
+// {
+//   mimeType: 'image/avif',
+//   imgType: 'avif',
+//   supported: false,
+//   timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+// }
 ```
 
 2. 📁 Supports GIF
@@ -60,10 +96,20 @@ async function exampleGIF() {
 await exampleGIF();
 
 // ok response
-// { mimeType: 'image/gif', imgType: 'gif', supported: true }
+// {
+//   mimeType: 'image/gif',
+//   imgType: 'gif',
+//   supported: true,
+//   timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+// }
 
 // fail response
-// { mimeType: 'image/gif', imgType: 'gif', supported: false }
+// {
+//   mimeType: 'image/gif',
+//   imgType: 'gif',
+//   supported: false,
+//   timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+// }
 ```
 
 3. 📁 Supports JPEG
@@ -81,10 +127,20 @@ async function exampleJPEG() {
 await exampleJPEG();
 
 // ok response
-// { mimeType: 'image/jpeg', imgType: 'jpeg', supported: true }
+// {
+//   mimeType: 'image/jpeg',
+//   imgType: 'jpeg',
+//   supported: true,
+//   timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+// }
 
 // fail response
-// { mimeType: 'image/jpeg', imgType: 'jpeg', supported: false }
+// {
+//   mimeType: 'image/jpeg',
+//   imgType: 'jpeg',
+//   supported: false,
+//   timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+// }
 ```
 
 4. 📁 Supports JPEGXL
@@ -102,10 +158,20 @@ async function exampleJPEGXL() {
 await exampleJPEGXL();
 
 // ok response
-// { mimeType: 'image/jxl', imgType: 'jxl', supported: true }
+// {
+//   mimeType: 'image/jxl',
+//   imgType: 'jxl',
+//   supported: true,
+//   timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+// }
 
 // fail response
-// { mimeType: 'image/jxl', imgType: 'jxl', supported: false }
+// {
+//   mimeType: 'image/jxl',
+//   imgType: 'jxl',
+//   supported: false,
+//   timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+// }
 ```
 
 5. 📁 Supports PNG
@@ -123,10 +189,20 @@ async function examplePNG() {
 await examplePNG();
 
 // ok response
-// { mimeType: 'image/png', imgType: 'png', supported: true }
+// {
+//   mimeType: 'image/png',
+//   imgType: 'png',
+//   supported: true,
+//   timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+// }
 
 // fail response
-// { mimeType: 'image/png', imgType: 'png', supported: false }
+// {
+//   mimeType: 'image/png',
+//   imgType: 'png',
+//   supported: false,
+//   timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+// }
 ```
 
 6. 📁 Supports SVG
@@ -144,10 +220,20 @@ async function exampleSVG() {
 await exampleSVG();
 
 // ok response
-// { mimeType: 'image/svg+xml', imgType: 'svg', supported: true }
+// {
+//   mimeType: 'image/svg+xml',
+//   imgType: 'svg',
+//   supported: true,
+//   timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+// }
 
 // fail response
-// { mimeType: 'image/svg+xml', imgType: 'svg', supported: false }
+// {
+//   mimeType: 'image/svg+xml',
+//   imgType: 'svg',
+//   supported: false,
+//   timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+// }
 ```
 
 7. 📁 Supports WEBP
@@ -165,10 +251,20 @@ async function exampleWEBP() {
 await exampleWEBP();
 
 // ok response
-// { mimeType: 'image/webp', imgType: 'webp', supported: true }
+// {
+//   mimeType: 'image/webp',
+//   imgType: 'webp',
+//   supported: true,
+//   timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+// }
 
 // fail response
-// { mimeType: 'image/webp', imgType: 'webp', supported: false }
+// {
+//   mimeType: 'image/webp',
+//   imgType: 'webp',
+//   supported: false,
+//   timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+// }
 ```
 
 8. 📁 Get All Image Format Support
@@ -185,9 +281,24 @@ await exampleAll();
 
 // response schema/shape
 // [
-//   { mimeType: 'image/avif', imgType: 'avif', supported: true },
-//   { mimeType: 'image/gif', imgType: 'gif', supported: true },
-//   { mimeType: 'image/jxl', imgType: 'jxl', supported: false },
+//   {
+//     mimeType: 'image/avif',
+//     imgType: 'avif',
+//     supported: true,
+//     timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+//   },
+//   {
+//     mimeType: 'image/gif',
+//     imgType: 'gif',
+//     supported: true,
+//     timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+//   },
+//   {
+//     mimeType: 'image/jxl',
+//     imgType: 'jxl',
+//     supported: false,
+//     timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+//   },
 //   ...
 //   ...
 //   ...
@@ -212,52 +323,74 @@ await exampleSome();
 
 // response schema/shape
 // [
-//   { mimeType: 'image/avif', imgType: 'avif', supported: true },
-//   { mimeType: 'image/webp', imgType: 'webp', supported: false },
-//   { mimeType: 'image/png', imgType: 'png', supported: true },
+//   {
+//     mimeType: 'image/avif',
+//     imgType: 'avif',
+//     supported: true,
+//     timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+//   },
+//   {
+//     mimeType: 'image/webp',
+//     imgType: 'webp',
+//     supported: false,
+//     timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+//   },
+//   {
+//     mimeType: 'image/png',
+//     imgType: 'png',
+//     supported: true,
+//     timestamp: { ms: 1760000000000, str: 'Sat 13-Jun-2026, 10:30:05 AM' },
+//   },
 // ]
 ```
 
 ### 📗 Test Coverage
 
-```PASS src/supports-jpegxl/tests/supports-jpegxl.test.ts
-PASS  src/supports-png/tests/supports-png.test.ts
-PASS  src/supports-webp/tests/supports-webp.test.ts
-PASS  src/supports-jpeg/tests/supports-jpeg.test.ts
-PASS  src/shared/tests/shared.test.ts
-PASS  src/supports-gif/tests/supports-gif.test.ts
-PASS  src/supports-svg/tests/supports-svg.test.ts
-PASS  src/is-image-format-supported/tests/is-image-format-supported.test.ts
-PASS  src/supports-avif/tests/supports-avif.test.ts
-PASS  src/get-all-image-format-support/tests/get-all-image-format-support.test.ts
--------------------------------|---------|----------|---------|---------|-------------------
-File                           | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
--------------------------------|---------|----------|---------|---------|-------------------
-All files                      |     100 |      100 |     100 |     100 |
-get-all-image-format-support   |     100 |      100 |     100 |     100 |
-  index.ts                     |     100 |      100 |     100 |     100 |
-is-image-format-supported      |     100 |      100 |     100 |     100 |
-  index.ts                     |     100 |      100 |     100 |     100 |
-shared                         |     100 |      100 |     100 |     100 |
-  index.ts                     |     100 |      100 |     100 |     100 |
-shared/mocks                   |     100 |      100 |     100 |     100 |
-  mock-broken-image.ts         |     100 |      100 |     100 |     100 |
-  mock-image.ts                |     100 |      100 |     100 |     100 |
-supports-avif                  |     100 |      100 |     100 |     100 |
-  index.ts                     |     100 |      100 |     100 |     100 |
-supports-gif                   |     100 |      100 |     100 |     100 |
-  index.ts                     |     100 |      100 |     100 |     100 |
-supports-jpeg                  |     100 |      100 |     100 |     100 |
-  index.ts                     |     100 |      100 |     100 |     100 |
-supports-jpegxl                |     100 |      100 |     100 |     100 |
-  index.ts                     |     100 |      100 |     100 |     100 |
-supports-png                   |     100 |      100 |     100 |     100 |
-  index.ts                     |     100 |      100 |     100 |     100 |
-supports-svg                   |     100 |      100 |     100 |     100 |
-  index.ts                     |     100 |      100 |     100 |     100 |
-supports-webp                  |     100 |      100 |     100 |     100 |
-  index.ts                     |     100 |      100 |     100 |     100 |
--------------------------------|---------|----------|---------|---------|-------------------
+```console
+PASS src/shared/tests/shared.test.ts
+PASS src/is-image-format-supported/tests/is-image-format-supported.test.ts
+PASS src/get-all-image-format-support/tests/get-all-image-format-support.test.ts
+PASS src/supports-webp/tests/supports-webp.test.ts
+PASS src/supports-svg/tests/supports-svg.test.ts
+PASS src/supports-png/tests/supports-png.test.ts
+PASS src/supports-avif/tests/supports-avif.test.ts
+PASS src/supports-gif/tests/supports-gif.test.ts
+PASS src/supports-jpeg/tests/supports-jpeg.test.ts
+PASS src/supports-jpegxl/tests/supports-jpegxl.test.ts
+
+------------------------------|---------|----------|---------|---------|-------------------
+File                          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+------------------------------|---------|----------|---------|---------|-------------------
+All files                     |   98.61 |     90.8 |     100 |   98.61 |
+ get-all-image-format-support |     100 |      100 |     100 |     100 |
+  index.ts                    |     100 |      100 |     100 |     100 |
+ is-image-format-supported    |     100 |      100 |     100 |     100 |
+  index.ts                    |     100 |      100 |     100 |     100 |
+ shared                       |     100 |       50 |     100 |     100 |
+  get-timestamp.ts            |     100 |       50 |     100 |     100 | 24
+  index.ts                    |     100 |      100 |     100 |     100 |
+ shared/mocks                 |     100 |      100 |     100 |     100 |
+  mock-broken-image.ts        |     100 |      100 |     100 |     100 |
+  mock-image.ts               |     100 |      100 |     100 |     100 |
+ supports-avif                |   97.82 |    88.88 |     100 |   97.82 |
+  index.ts                    |   97.82 |    88.88 |     100 |   97.82 | 20
+ supports-gif                 |   97.87 |    88.88 |     100 |   97.87 |
+  index.ts                    |   97.87 |    88.88 |     100 |   97.87 | 20
+ supports-jpeg                |   98.18 |    88.88 |     100 |   98.18 |
+  index.ts                    |   98.18 |    88.88 |     100 |   98.18 | 20
+ supports-jpegxl              |   97.82 |    88.88 |     100 |   97.82 |
+  index.ts                    |   97.82 |    88.88 |     100 |   97.82 | 20
+ supports-png                 |   97.82 |    88.88 |     100 |   97.82 |
+  index.ts                    |   97.82 |    88.88 |     100 |   97.82 | 20
+ supports-svg                 |   97.82 |    88.88 |     100 |   97.82 |
+  index.ts                    |   97.82 |    88.88 |     100 |   97.82 | 20
+ supports-webp                |   97.82 |    88.88 |     100 |   97.82 |
+  index.ts                    |   97.82 |    88.88 |     100 |   97.82 | 20
+------------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 10 passed, 10 total
+Tests:       45 passed, 45 total
+Snapshots:   0 total
 ```
 
 ### 📚 Contributions
