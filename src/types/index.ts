@@ -8,9 +8,11 @@ export type TMimeType =
   | 'image/avif'
   | 'image/jxl';
 export type TTimestamp = {ms: number, str: string};
+export type TBrowserEnv = {name: string, version: string | number | null};
 export type TSupportState = {
   mimeType: TMimeType,
   imgType: TImageType,
   supported: boolean,
   timestamp: TTimestamp,
+  browserEnv: TBrowserEnv
 };

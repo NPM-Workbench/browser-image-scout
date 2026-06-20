@@ -2,6 +2,7 @@
 import { JPEG_BASE_64_IMG_ENC } from '../shared/index.js';
 import type { TSupportState } from '../types/index.js';
 import createTimestamp from '../shared/get-timestamp.js';
+import getBrowserEnv from '../shared/get-browser-env.js';
 
 /* types */
 type TSupportsJPEGReturn = TSupportState;
@@ -25,11 +26,12 @@ async function supportsJPEG(): Promise<TSupportsJPEGReturn> {
         const imgType = 'jpeg';
         const B64_URL = `data:${mimeType};base64,${JPEG_BASE_64_IMG_ENC}`;
         const image = new Image();
+        const browserEnv = getBrowserEnv();
 
         image.addEventListener(
           'load',
           () => {
-            resolve({ mimeType, imgType, supported: image.naturalWidth > 0, timestamp: createTimestamp() });
+            resolve({ mimeType, imgType, supported: image.naturalWidth > 0, timestamp: createTimestamp(), browserEnv });
           },
           { once: true },
         );
@@ -37,7 +39,7 @@ async function supportsJPEG(): Promise<TSupportsJPEGReturn> {
         image.addEventListener(
           'error',
           () => {
-            resolve({ mimeType, imgType, supported: false, timestamp: createTimestamp() });
+            resolve({ mimeType, imgType, supported: false, timestamp: createTimestamp(), browserEnv });
           },
           { once: true },
         );

@@ -4,6 +4,10 @@ import type { TSupportsJPEGXLReturn } from '../index.js';
 import { MockImage } from '../../shared/mocks/mock-image.js';
 import { MockBrokenImage } from '../../shared/mocks/mock-broken-image.js';
 
+/* mocks */
+const mockBrowserEnv = { name: 'Mock Browser', version: '1.0.0' };
+const mockGetBrowserEnv = jest.fn(() => mockBrowserEnv);
+
 /* suite */
 describe('Supports JPEG-XL', () => {
   /* setup */
@@ -13,6 +17,11 @@ describe('Supports JPEG-XL', () => {
   /* before-each: life cycle */
   beforeEach(() => {
     jest.resetModules();
+    mockGetBrowserEnv.mockClear();
+    mockGetBrowserEnv.mockReturnValue(mockBrowserEnv);
+    jest.unstable_mockModule('../../shared/get-browser-env.js', () => ({
+      default: mockGetBrowserEnv,
+    }));
     globalThis.window = {} as any;
     globalThis.Image = MockImage as any;
   });
@@ -57,6 +66,8 @@ describe('Supports JPEG-XL', () => {
       ms: expect.any(Number),
       str: expect.any(String),
     });
+    expect(response.browserEnv).toEqual(mockBrowserEnv);
+    expect(mockGetBrowserEnv).toHaveBeenCalledTimes(1);
   });
 
   /* 4 */
@@ -75,5 +86,7 @@ describe('Supports JPEG-XL', () => {
       ms: expect.any(Number),
       str: expect.any(String),
     });
+    expect(response.browserEnv).toEqual(mockBrowserEnv);
+    expect(mockGetBrowserEnv).toHaveBeenCalledTimes(1);
   });
 });

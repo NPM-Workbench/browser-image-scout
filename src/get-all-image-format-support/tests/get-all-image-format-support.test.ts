@@ -4,6 +4,10 @@ import type { TGetAllImageFormatSupportReturn } from '../index.js';
 import { MockImage } from '../../shared/mocks/mock-image.js';
 import { MockBrokenImage } from '../../shared/mocks/mock-broken-image.js';
 
+/* mocks */
+const mockBrowserEnv = { name: 'Mock Browser', version: '1.0.0' };
+const mockGetBrowserEnv = jest.fn(() => mockBrowserEnv);
+
 /* suite */
 describe('Get All Image Format Support', () => {
   /* setup */
@@ -13,6 +17,11 @@ describe('Get All Image Format Support', () => {
   /* before-each: life cycle */
   beforeEach(() => {
     jest.resetModules();
+    mockGetBrowserEnv.mockClear();
+    mockGetBrowserEnv.mockReturnValue(mockBrowserEnv);
+    jest.unstable_mockModule('../../shared/get-browser-env.js', () => ({
+      default: mockGetBrowserEnv,
+    }));
     globalThis.window = {} as any;
     globalThis.Image = MockImage as any;
   });
@@ -55,6 +64,7 @@ describe('Get All Image Format Support', () => {
         mimeType: 'image/avif',
         imgType: 'avif',
         supported: true,
+        browserEnv: mockBrowserEnv,
         timestamp: {
           ms: expect.any(Number),
           str: expect.any(String),
@@ -109,12 +119,14 @@ describe('Get All Image Format Support', () => {
         mimeType: 'image/webp',
         imgType: 'webp',
         supported: true,
+        browserEnv: mockBrowserEnv,
         timestamp: {
           ms: expect.any(Number),
           str: expect.any(String),
         },
       }),
     ]);
+    expect(mockGetBrowserEnv).toHaveBeenCalledTimes(7);
   });
 
   /* 4 */
@@ -131,6 +143,7 @@ describe('Get All Image Format Support', () => {
         mimeType: 'image/avif',
         imgType: 'avif',
         supported: false,
+        browserEnv: mockBrowserEnv,
         timestamp: {
           ms: expect.any(Number),
           str: expect.any(String),
@@ -185,11 +198,13 @@ describe('Get All Image Format Support', () => {
         mimeType: 'image/webp',
         imgType: 'webp',
         supported: false,
+        browserEnv: mockBrowserEnv,
         timestamp: {
           ms: expect.any(Number),
           str: expect.any(String),
         },
       }),
     ]);
+    expect(mockGetBrowserEnv).toHaveBeenCalledTimes(7);
   });
 });

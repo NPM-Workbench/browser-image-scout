@@ -4,6 +4,10 @@ import type { TSupportsGIFReturn } from '../index.js';
 import { MockImage } from '../../shared/mocks/mock-image.js';
 import { MockBrokenImage } from '../../shared/mocks/mock-broken-image.js';
 
+/* mocks */
+const mockBrowserEnv = { name: 'Mock Browser', version: '1.0.0' };
+const mockGetBrowserEnv = jest.fn(() => mockBrowserEnv);
+
 /* suite */
 describe('Supports GIF', () => {
   const originalWindow = globalThis.window;
@@ -11,6 +15,11 @@ describe('Supports GIF', () => {
 
   beforeEach(() => {
     jest.resetModules();
+    mockGetBrowserEnv.mockClear();
+    mockGetBrowserEnv.mockReturnValue(mockBrowserEnv);
+    jest.unstable_mockModule('../../shared/get-browser-env.js', () => ({
+      default: mockGetBrowserEnv,
+    }));
     globalThis.window = {} as any;
     globalThis.Image = MockImage as any;
   });
@@ -54,6 +63,8 @@ describe('Supports GIF', () => {
       ms: expect.any(Number),
       str: expect.any(String),
     });
+    expect(response.browserEnv).toEqual(mockBrowserEnv);
+    expect(mockGetBrowserEnv).toHaveBeenCalledTimes(1);
   });
 
   /* 4 */
@@ -72,5 +83,7 @@ describe('Supports GIF', () => {
       ms: expect.any(Number),
       str: expect.any(String),
     });
+    expect(response.browserEnv).toEqual(mockBrowserEnv);
+    expect(mockGetBrowserEnv).toHaveBeenCalledTimes(1);
   });
 });
