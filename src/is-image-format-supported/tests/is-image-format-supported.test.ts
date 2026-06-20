@@ -3,6 +3,10 @@ import { jest } from '@jest/globals';
 import { MockImage } from '../../shared/mocks/mock-image.js';
 import { MockBrokenImage } from '../../shared/mocks/mock-broken-image.js';
 
+/* mocks */
+const mockBrowserEnv = { name: 'Mock Browser', version: '1.0.0' };
+const mockGetBrowserEnv = jest.fn(() => mockBrowserEnv);
+
 /* suite */
 describe('Is Image Format Supported', () => {
   /* setup */
@@ -12,6 +16,11 @@ describe('Is Image Format Supported', () => {
   /* before-each: life cycle */
   beforeEach(() => {
     jest.resetModules();
+    mockGetBrowserEnv.mockClear();
+    mockGetBrowserEnv.mockReturnValue(mockBrowserEnv);
+    jest.unstable_mockModule('../../shared/get-browser-env.js', () => ({
+      default: mockGetBrowserEnv,
+    }));
     globalThis.window = {} as any;
     globalThis.Image = MockImage as any;
   });
@@ -53,6 +62,8 @@ describe('Is Image Format Supported', () => {
     expect(response[0].supported).toBe(true);
     expect(response[0].mimeType).toBe('image/avif');
     expect(response[0].imgType).toBe('avif');
+    expect(response[0].browserEnv).toEqual(mockBrowserEnv);
+    expect(mockGetBrowserEnv).toHaveBeenCalledTimes(1);
     expect(response[0].timestamp).toEqual({
       ms: expect.any(Number),
       str: expect.any(String),
@@ -72,6 +83,8 @@ describe('Is Image Format Supported', () => {
     expect(response[0].supported).toBe(false);
     expect(response[0].mimeType).toBe('image/gif');
     expect(response[0].imgType).toBe('gif');
+    expect(response[0].browserEnv).toEqual(mockBrowserEnv);
+    expect(mockGetBrowserEnv).toHaveBeenCalledTimes(1);
     expect(response[0].timestamp).toEqual({
       ms: expect.any(Number),
       str: expect.any(String),
@@ -91,6 +104,7 @@ describe('Is Image Format Supported', () => {
         supported: true,
         mimeType: 'image/avif',
         imgType: 'avif',
+        browserEnv: mockBrowserEnv,
         timestamp: {
           ms: expect.any(Number),
           str: expect.any(String),
@@ -100,12 +114,14 @@ describe('Is Image Format Supported', () => {
         supported: true,
         mimeType: 'image/gif',
         imgType: 'gif',
+        browserEnv: mockBrowserEnv,
         timestamp: {
           ms: expect.any(Number),
           str: expect.any(String),
         },
       }),
     ]);
+    expect(mockGetBrowserEnv).toHaveBeenCalledTimes(2);
   });
 
   /* 6 */
@@ -123,6 +139,7 @@ describe('Is Image Format Supported', () => {
         supported: false,
         mimeType: 'image/avif',
         imgType: 'avif',
+        browserEnv: mockBrowserEnv,
         timestamp: {
           ms: expect.any(Number),
           str: expect.any(String),
@@ -132,11 +149,13 @@ describe('Is Image Format Supported', () => {
         supported: false,
         mimeType: 'image/gif',
         imgType: 'gif',
+        browserEnv: mockBrowserEnv,
         timestamp: {
           ms: expect.any(Number),
           str: expect.any(String),
         },
       }),
     ]);
+    expect(mockGetBrowserEnv).toHaveBeenCalledTimes(2);
   });
 });
