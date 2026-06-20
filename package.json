@@ -34,15 +34,55 @@
     "how-to-check-if-browser-supports-image-format"
   ],
   "license": "MIT",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "type": "module",
   "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "sideEffects": false,
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./package.json": "./package.json",
+    "./supports-avif": {
+      "import": "./dist/supports-avif/index.js",
+      "types": "./dist/supports-avif/index.d.ts"
+    },
+    "./supports-gif": {
+      "import": "./dist/supports-gif/index.js",
+      "types": "./dist/supports-gif/index.d.ts"
+    },
+    "./supports-jpeg": {
+      "import": "./dist/supports-jpeg/index.js",
+      "types": "./dist/supports-jpeg/index.d.ts"
+    },
+    "./supports-jpegxl": {
+      "import": "./dist/supports-jpegxl/index.js",
+      "types": "./dist/supports-jpegxl/index.d.ts"
+    },
+    "./supports-png": {
+      "import": "./dist/supports-png/index.js",
+      "types": "./dist/supports-png/index.d.ts"
+    },
+    "./supports-svg": {
+      "import": "./dist/supports-svg/index.js",
+      "types": "./dist/supports-svg/index.d.ts"
+    },
+    "./supports-webp": {
+      "import": "./dist/supports-webp/index.js",
+      "types": "./dist/supports-webp/index.d.ts"
+    },
+    "./is-image-format-supported": {
+      "import": "./dist/is-image-format-supported/index.js",
+      "types": "./dist/is-image-format-supported/index.d.ts"
+    },
+    "./get-all-image-format-support": {
+      "import": "./dist/get-all-image-format-support/index.js",
+      "types": "./dist/get-all-image-format-support/index.d.ts"
+    },
+    "./*": "./dist/*"
   },
   "files": [
   "dist",

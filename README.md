@@ -26,10 +26,11 @@ npm install --save browser-image-scout
 2. Lightweight: No runtime dependencies; uses tiny base64-encoded sample images embedded in the package and no third-party npm packages for browser detection
 3. Accurate detection: Uses in-memory data-URL images and Image load/error events plus `image.naturalWidth > 0` to determine true decoder support.
 4. Formats supported: `avif`, `webp`, `jpeg`, `png`, `gif`, `svg`, `jxl`.
-5. Returns browser environment details via `navigator.userAgentData` when available, with a `navigator.userAgent` fallback for older browsers.
-6. Package comprises of both direct Helper and Convenience functions
-7. No network required: Detection runs entirely in-memory (no external requests)
-8. Easy to Understand: API features are easy to understand, which can be integrated into your client side application code
+5. Tree-shakeable: Supports per-module imports
+6. Returns browser environment details via `navigator.userAgentData` when available, with a `navigator.userAgent` fallback for older browsers.
+7. Package comprises of both direct Helper and Convenience functions
+8. No network required: Detection runs entirely in-memory (no external requests)
+9. Easy to Understand: API features are easy to understand, which can be integrated into your client side application code
 
 ### 🧿 Response Shape
 
@@ -61,12 +62,21 @@ type TSupportState = {
 
 ### 🔤 Available Functions/Example API Usage
 
+```javascript
+/* developers can opt for two types of imports as shown below */
+/* 🧰 full bundle import */
+import { supportsAVIF } from 'browser-image-scout';
+
+/* 🌳 tree-shakeable import */
+import { supportsAVIF } from 'browser-image-scout/supports-avif';
+```
+
 1. 📁 Supports AVIF
 
 ```javascript
 /* node modules */
-import { supportsAVIF } from 'browser-image-scout';
-import type { TSupportsAVIFReturn } from 'browser-image-scout';
+import { supportsAVIF } from 'browser-image-scout/supports-avif';
+import type { TSupportsAVIFReturn } from 'browser-image-scout/supports-avif';
 
 /* example */
 async function exampleAVIF() {
@@ -98,8 +108,8 @@ await exampleAVIF();
 
 ```javascript
 /* node modules */
-import { supportsGIF } from 'browser-image-scout';
-import type { TSupportsGIFReturn } from 'browser-image-scout';
+import { supportsGIF } from 'browser-image-scout/supports-gif';
+import type { TSupportsGIFReturn } from 'browser-image-scout/supports-gif';
 
 /* example */
 async function exampleGIF() {
@@ -131,8 +141,8 @@ await exampleGIF();
 
 ```javascript
 /* node modules */
-import { supportsJPEG } from 'browser-image-scout';
-import type { TSupportsJPEGReturn } from 'browser-image-scout';
+import { supportsJPEG } from 'browser-image-scout/supports-jpeg';
+import type { TSupportsJPEGReturn } from 'browser-image-scout/supports-jpeg';
 
 /* example */
 async function exampleJPEG() {
@@ -164,8 +174,8 @@ await exampleJPEG();
 
 ```javascript
 /* node modules */
-import { supportsJPEGXL } from 'browser-image-scout';
-import type { TSupportsJPEGXLReturn } from 'browser-image-scout';
+import { supportsJPEGXL } from 'browser-image-scout/supports-jpegxl';
+import type { TSupportsJPEGXLReturn } from 'browser-image-scout/supports-jpegxl';
 
 /* example */
 async function exampleJPEGXL() {
@@ -197,8 +207,8 @@ await exampleJPEGXL();
 
 ```javascript
 /* node modules */
-import { supportsPNG } from 'browser-image-scout';
-import type { TSupportsPNGReturn } from 'browser-image-scout';
+import { supportsPNG } from 'browser-image-scout/supports-png';
+import type { TSupportsPNGReturn } from 'browser-image-scout/supports-png';
 
 /* example */
 async function examplePNG() {
@@ -230,8 +240,8 @@ await examplePNG();
 
 ```javascript
 /* node modules */
-import { supportsSVG } from 'browser-image-scout';
-import type { TSupportsSVGReturn } from 'browser-image-scout';
+import { supportsSVG } from 'browser-image-scout/supports-svg';
+import type { TSupportsSVGReturn } from 'browser-image-scout/supports-svg';
 
 /* example */
 async function exampleSVG() {
@@ -295,8 +305,8 @@ await exampleWEBP();
 8. 📁 Get All Image Format Support
 
 ```javascript
-import { getAllImageFormatSupport } from 'browser-image-scout';
-import type { TGetAllImageFormatSupportReturn } from 'browser-image-scout';
+import { getAllImageFormatSupport } from 'browser-image-scout/get-all-image-format-support';
+import type { TGetAllImageFormatSupportReturn } from 'browser-image-scout/get-all-image-format-support';
 
 async function exampleAll() {
   const res: TGetAllImageFormatSupportReturn = await getAllImageFormatSupport();
@@ -336,8 +346,8 @@ await exampleAll();
 9. 📁 Is Image Format Supported
 
 ```javascript
-import { isImageFormatSupported } from 'browser-image-scout';
-import type { TIsImageFormatSupportedReturn } from 'browser-image-scout';
+import { isImageFormatSupported } from 'browser-image-scout/is-image-format-supported';
+import type { TIsImageFormatSupportedReturn } from 'browser-image-scout/is-image-format-supported';
 
 async function exampleSome() {
   const res: TIsImageFormatSupportedReturn[] = await isImageFormatSupported([
